@@ -60,6 +60,7 @@ Built-in Template Helpers
 ### Assets (~`sfTemplateHelperAssets`~)
 
 *Dependencies*: none
+
 *Canonical name*: ~`assets`~
 
 The `assets` helper manages asset URLs. Assets are static files like images,
@@ -166,7 +167,8 @@ online.
 
 ### JavaScripts (~`sfTemplateHelperJavascripts`~)
 
-*Dependencies*: `assets` (`sfTemplateHelperJavascripts`)
+*Dependencies*: `assets` (`sfTemplateHelperAssets`)
+
 *Canonical name*: ~`javascripts`~
 
 The JavaScript helper manages JavaScript files across templates. It needs the
@@ -192,7 +194,8 @@ simply echo helper object itself as shown below:
 
 ### Stylesheets (~`sfTemplateHelperStylesheets`~)
 
-*Dependencies*: `assets` (`sfTemplateHelperJavascripts`)
+*Dependencies*: `assets` (`sfTemplateHelperAssets`)
+
 *Canonical name*: ~`stylesheets`~
 
 The stylesheet helper manages stylesheet files across templates. It needs the
