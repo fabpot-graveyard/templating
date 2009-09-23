@@ -13,7 +13,7 @@ require_once dirname(__FILE__).'/../lib/lime/lime.php';
 require_once dirname(__FILE__).'/../../lib/sfTemplateAutoloader.php';
 sfTemplateAutoloader::register();
 
-$t = new lime_test(24);
+$t = new lime_test(25);
 
 // __construct()
 $t->diag('__construct()');
@@ -31,6 +31,8 @@ $helper->setBasePath('/foo');
 $t->is($helper->getBasePath(), '/foo/', '->setBasePath() appends a / is needed');
 $helper->setBasePath('');
 $t->is($helper->getBasePath(), '/', '->setBasePath() returns / if no base path is defined');
+$helper->setBasePath('0');
+$t->is($helper->getBasePath(), '/0/', '->setBasePath() returns /0/ if 0 is given');
 
 // ->getVersion() ->getVersion()
 $t->diag('->getVersion() ->getVersion()');

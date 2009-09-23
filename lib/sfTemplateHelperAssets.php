@@ -81,7 +81,7 @@ class sfTemplateHelperAssets extends sfTemplateHelper
    */
   public function setBasePath($basePath)
   {
-    if ($basePath && '/' != $basePath[0])
+    if (strlen($basePath) && '/' != $basePath[0])
     {
       $basePath = '/'.$basePath;
     }
