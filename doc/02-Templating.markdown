@@ -282,7 +282,7 @@ The articles layout is itself decorated by a base layout.
 
     <?php $this->set('title', 'Articles | '.$this->get('title')) ?>
 
-    <?php $this->stylesheets->add('/css/articles.css');
+    <?php $this->stylesheets->add('/css/articles.css') ?>
 
     <?php $this->output('content') ?>
 
