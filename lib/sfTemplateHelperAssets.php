@@ -92,22 +92,26 @@ class sfTemplateHelperAssets extends sfTemplateHelper
   /**
    * Gets the base URL.
    *
+   * @param  string $path The path
+   *
    * @return string The base URL
    */
   public function getBaseURL($path)
   {
-    if (!$this->baseURLs)
+    $count = count($this->baseURLs);
+
+    if (0 === $count)
     {
       return '';
     }
-    elseif (1 == count($this->baseURLs))
+
+    if (1 === $count)
     {
       return $this->baseURLs[0];
     }
-    else
-    {
-      return $this->baseURLs[fmod(hexdec(substr(md5($path), 0, 10)), count($this->baseURLs))];
-    }
+
+    return $this->baseURLs[fmod(hexdec(substr(md5($path), 0, 10)), $count)];
+
   }
 
   /**
