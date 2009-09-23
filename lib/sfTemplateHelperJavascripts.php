@@ -66,7 +66,7 @@ class sfTemplateHelperJavascripts extends sfTemplateHelper
         $atts[] = sprintf('%s="%s"', $key, $this->helperSet->getEngine()->escape($value));
       }
 
-      $html[] = sprintf('<script language="JavaScript" type="text/javascript" src="%s" %s></script>', $path, implode(' ', $atts));
+      $html[] = sprintf('<script type="text/javascript" src="%s" %s></script>', $path, implode(' ', $atts));
     }
 
     return implode("\n", $html);

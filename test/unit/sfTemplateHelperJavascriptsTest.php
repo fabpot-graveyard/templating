@@ -40,4 +40,4 @@ $helperSet->set($helper);
 $helperSet->get('assets')->setBaseURLs('');
 $helperSet->setEngine($engine = new sfTemplateEngine(new sfTemplateLoaderFilesystem('/')));
 $helper->add('foo', array('class' => 'ba>'));
-$t->is($helper->__toString(), '<script language="JavaScript" type="text/javascript" src="/foo" class="ba&gt;"></script>', '->__toString() converts the JavaScript configuration to HTML');
+$t->is($helper->__toString(), '<script type="text/javascript" src="/foo" class="ba&gt;"></script>', '->__toString() converts the JavaScript configuration to HTML');
