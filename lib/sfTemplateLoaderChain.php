@@ -51,15 +51,15 @@ class sfTemplateLoaderChain extends sfTemplateLoader
    * @param string $template The logical template name
    * @param string $renderer The renderer to use
    *
-   * @return string|Boolean false if the template cannot be loaded, the loaded template otherwise
+   * @return sfTemplateStorage|Boolean false if the template cannot be loaded, a sfTemplateStorage instance otherwise
    */
   public function load($template, $renderer = 'php')
   {
     foreach ($this->loaders as $loader)
     {
-      if (false !== $content = $loader->load($template, $renderer))
+      if (false !== $ret = $loader->load($template, $renderer))
       {
-        return $content;
+        return $ret;
       }
     }
 

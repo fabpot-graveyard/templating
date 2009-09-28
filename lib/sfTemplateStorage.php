@@ -41,7 +41,7 @@ class sfTemplateStorage
    */
   public function __toString()
   {
-    return $this->template;
+    return (string) $this->template;
   }
 
   /**

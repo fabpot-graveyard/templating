@@ -42,7 +42,7 @@ The only requirement for a template engine class is to implement the
     [php]
     interface sfTemplateEngineInterface
     {
-      function evaluate($template, array $parameters = array());
+      function evaluate(sfTemplateStorage $template, array $parameters = array());
 
       function setEngine(sfTemplateEngine $engine);
     }
@@ -52,11 +52,7 @@ The only requirement for a template engine class is to implement the
 >abstract base class, which provides a proxy for helpers and a way to
 >automatically call the engine methods.
 
-The `$template` variable can be any of the following:
-
-  * A string representing the template;
-
-  * A `sfTemplateStorage` instance.
+The `$template` must be a `sfTemplateStorage` instance.
 
 >**NOTE**
 >The previous chapter has more information about
@@ -67,7 +63,7 @@ The ~`evaluate()`~ method must return the rendered template as a string.
 As an example, the `sfTemplateEnginePhp::evaluate()` method read as follows:
 
     [php]
-    public function evaluate($template, array $parameters = array())
+    public function evaluate(sfTemplateStorage $template, array $parameters = array())
     {
       if ($template instanceof sfTemplateStorageFile)
       {
@@ -77,7 +73,7 @@ As an example, the `sfTemplateEnginePhp::evaluate()` method read as follows:
 
         return ob_get_clean();
       }
-      else if (is_string($template) || $template instanceof sfTemplateStorageString)
+      elseif ($template instanceof sfTemplateStorageString)
       {
         extract($parameters);
         ob_start();
@@ -105,7 +101,7 @@ The following code implements the renderer class:
     [php]
     class ProjectTemplateRenderer extends sfTemplateRenderer
     {
-      public function evaluate($template, array $parameters = array())
+      public function evaluate(sfTemplateStorage $template, array $parameters = array())
       {
         if ($template instanceof sfTemplateStorageFile)
         {
@@ -125,7 +121,8 @@ The following code implements the renderer class:
 
 In the `evaluate()` method, we get the content of the template on the
 filesystem if the template is an instance of `sfTemplateStorageFile`. If not,
-the template is a string or an object with a `__toString()` method.
+the template is an object with a `__toString()` method that returns the
+content of the template.
 
 >**NOTE**
 >As seen in the previous chapter, if you implement a compilable loader, you
@@ -150,13 +147,13 @@ Create the renderer class as shown below:
         $this->tal = $tal;
       }
 
-      public function evaluate($template, array $parameters = array())
+      public function evaluate(sfTemplateStorage $template, array $parameters = array())
       {
         if ($template instanceof sfTemplateStorageFile)
         {
           $this->tal->setTemplate((string) $template);
         }
-        else if (is_string($template) || $template instanceof sfTemplateStorageString)
+        elseif ($template instanceof sfTemplateStorageString)
         {
           $this->tal->setSource((string) $template);
         }

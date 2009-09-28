@@ -139,11 +139,7 @@ The only requirement for a template loader class is to implement the
 >All built-in template loaders inherit from the ~`sfTemplateLoader`~
 >abstract base class, which provides a debugger interface.
 
-The ~`load()`~ method must return one of the following:
-
-  * A string representing the template;
-
-  * A `sfTemplateStorage` instance.
+The ~`load()`~ method must return a `sfTemplateStorage` instance.
 
 ### Template ~Storages|storage~
 
@@ -184,7 +180,7 @@ templates stored in a database table:
               $this->dispatcher->notify(new sfEvent($this, 'application.log', array(sprintf('Loading template "%s" from database', $template))));
             }
 
-            return $rows[0][0];
+            return new sfTemplateStorageString($rows[0][0]);
           }
         }
         catch (PDOException $e)
@@ -232,7 +228,7 @@ base loader class:
       {
         if (method_exists($this, $method = 'getTemplate'.$template))
         {
-          return $this->$method();
+          return new sfTemplateStorageString($this->$method());
         }
 
         return false;

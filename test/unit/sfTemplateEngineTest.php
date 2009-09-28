@@ -14,7 +14,7 @@ require_once dirname(__FILE__).'/../../lib/sfTemplateAutoloader.php';
 sfTemplateAutoloader::register();
 require_once dirname(__FILE__).'/lib/SimpleHelper.php';
 
-$t = new lime_test(35);
+$t = new lime_test(33);
 
 class ProjectTemplateEngine extends sfTemplateEngine
 {
@@ -50,7 +50,7 @@ class ProjectTemplateLoader extends sfTemplateLoader
   {
     if (isset($this->templates[$template.'.'.$renderer]))
     {
-      return $this->templates[$template.'.'.$renderer];
+      return new sfTemplateStorageString($this->templates[$template.'.'.$renderer]);
     }
 
     return false;
@@ -191,28 +191,6 @@ $loader->setTemplate('foo.php', '<?php $this->extend("layout"); echo $foo ?>');
 $loader->setTemplate('layout.php', '<?php echo $this->render("bar") ?>-<?php echo $this->get("content") ?>-');
 $t->is($engine->render('foo', array('foo' => 'foo', 'bar' => 'bar')), 'bar-foo-', '->render() supports render() calls in templates');
 
-$loader->setTemplate('foobar.php', new stdClass());
-try
-{
-  $engine->render('foobar');
-  $t->fail('->render() throws a RuntimeException if the template cannot be rendered');
-}
-catch (RuntimeException $e)
-{
-  $t->pass('->render() throws a RuntimeException if the template cannot be rendered');
-}
-
-$loader->setTemplate('foobarbar.php', '<?php echo $this->extend("foobar") ?>');
-try
-{
-  $engine->render('foobarbar');
-  $t->fail('->render() throws a RuntimeException if the template cannot be rendered');
-}
-catch (RuntimeException $e)
-{
-  $t->pass('->render() throws a RuntimeException if the template cannot be rendered');
-}
-
 class CompilableTemplateLoader extends sfTemplateLoader implements sfTemplateLoaderCompilableInterface
 {
   public function load($template, $renderer = 'php')
@@ -228,7 +206,7 @@ class CompilableTemplateLoader extends sfTemplateLoader implements sfTemplateLoa
 
 class FooTemplateRenderer extends sfTemplateRenderer
 {
-  public function evaluate($template, array $parameters = array())
+  public function evaluate(sfTemplateStorage $template, array $parameters = array())
   {
     return 'foo';
   }

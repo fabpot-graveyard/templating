@@ -23,7 +23,7 @@ class ProjectTemplateRenderer extends sfTemplateRenderer
     return $this->engine;
   }
 
-  public function evaluate($template, array $parameters = array())
+  public function evaluate(sfTemplateStorage $template, array $parameters = array())
   {
   }
 }

@@ -25,7 +25,7 @@ interface sfTemplateLoaderInterface
    * @param string $template The logical template name
    * @param string $renderer The renderer to use
    *
-   * @return string|Boolean false if the template cannot be loaded, the loaded template otherwise
+   * @return sfTemplateStorage|Boolean false if the template cannot be loaded, a sfTemplateStorage instance otherwise
    */
   function load($template, $renderer = 'php');
 }

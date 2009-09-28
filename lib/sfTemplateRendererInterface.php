@@ -22,12 +22,12 @@ interface sfTemplateRendererInterface
   /**
    * Evaluates a template.
    *
-   * @param mixed $template   The template to render
-   * @param array $parameters An array of parameters to pass to the template
+   * @param sfTemplateStorage $template   The template to render
+   * @param array             $parameters An array of parameters to pass to the template
    *
    * @return string|false The evaluated template, or false if the renderer is unable to render the template
    */
-  function evaluate($template, array $parameters = array());
+  function evaluate(sfTemplateStorage $template, array $parameters = array());
 
   /**
    * Sets the template engine associated with this renderer.

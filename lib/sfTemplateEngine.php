@@ -91,7 +91,7 @@ class sfTemplateEngine
     $this->parents[$name] = null;
 
     // renderer
-    if ($template instanceof sfTemplateStorage && $template->getRenderer())
+    if ($template->getRenderer())
     {
       $renderer = $template->getRenderer();
     }

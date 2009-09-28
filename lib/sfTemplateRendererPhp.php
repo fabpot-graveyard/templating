@@ -22,12 +22,12 @@ class sfTemplateRendererPhp extends sfTemplateRenderer
   /**
    * Evaluates a template.
    *
-   * @param mixed $template   The template to render
-   * @param array $parameters An array of parameters to pass to the template
+   * @param sfTemplateStorage $template   The template to render
+   * @param array             $parameters An array of parameters to pass to the template
    *
    * @return string|false The evaluated template, or false if the renderer is unable to render the template
    */
-  public function evaluate($template, array $parameters = array())
+  public function evaluate(sfTemplateStorage $template, array $parameters = array())
   {
     if ($template instanceof sfTemplateStorageFile)
     {
@@ -37,7 +37,7 @@ class sfTemplateRendererPhp extends sfTemplateRenderer
 
       return ob_get_clean();
     }
-    else if (is_string($template) || $template instanceof sfTemplateStorageString)
+    else if ($template instanceof sfTemplateStorageString)
     {
       extract($parameters);
       ob_start();
