@@ -93,7 +93,7 @@ in a template:
     [php]
     Hello <?php echo $name ?>
 
-    <?php $this->render('embedded', array('name' => $name)) ?>
+    <?php echo $this->render('embedded', array('name' => $name)) ?>
 
 Within a template, the `render()` method is the same as the one used to render
 the main template and as such takes the same arguments.
